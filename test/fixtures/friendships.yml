@@ -1,0 +1,11 @@
+one_three:
+  member: :one
+  friend: :three
+
+one_four:
+  member: :one
+  friend: :four
+
+two_three:
+  member: :two
+  friend: :three

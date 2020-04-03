@@ -1,0 +1,35 @@
+%p.notice= notice
+
+= link_to 'Edit', edit_member_path(@member)
+|
+= link_to 'Back', members_path
+
+%br
+%br
+
+Name: #{@member.name}
+%br
+Website: #{@member.website_url}
+%br
+Shortening: #{@member.website_url_short}
+%br
+%br
+
+%table
+  %tr
+    %th Headings
+  - @member.url_extracts.each do |extract|
+    %tr
+      %td= extract.content
+
+%br
+%br
+
+%table
+  %tr
+    %th Friends
+  - @friendships.each do |f|
+    %tr
+      - member = f.member == @member ? f.friend : f.member
+      - if member
+        %td= link_to member.name, member_path(member)

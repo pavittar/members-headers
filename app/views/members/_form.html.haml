@@ -1,0 +1,45 @@
+= simple_form_for @member do |f|
+  - if member.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(member.errors.count, "error")
+        prohibited this member from being saved:
+      %ul
+        - member.errors.full_messages.each do |message|
+          %li= message
+
+  = f.input :name
+  %br
+
+  = f.input :website_url, as: :string
+  %br
+
+  .actions
+    = f.submit
+
+- if !@member.new_record?
+  %br
+  %br
+  %b Friends
+  %br
+  - @friendships.each do |f|
+    - if f.member == @member
+      = f.friend.try(:name)
+    - else
+      = f.member.try(:name)
+    |
+    = link_to "Remove", member_friendship_path(@member, f), method: :delete
+    %br
+
+  %br
+  %br
+
+  %b Add Friends
+  %br
+  - @members.each do |m|
+    = m.name
+    |
+    = link_to "Add", member_friendships_path(@member, friend_id: m), method: :post
+    %br
+
+  %br
